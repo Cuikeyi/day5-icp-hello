@@ -3,20 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <title>hello</title>
+    <title>Microblob</title>
     <base href="/" />
     <link rel="icon" href="favicon.ico" />
-    <link type="text/css" rel="stylesheet" href="main.css" />
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
   </head>
   <body>
+    <header><h1>Microblob</h1></header>
     <main>
-      <img src="logo.png" alt="DFINITY logo" />
-      <form action="#">
-        <label for="name">Enter your name: &nbsp;</label>
-        <input id="name" alt="Name" type="text" />
-        <button type="submit">Click Me!</button>
-      </form>
-      <section id="greeting"></section>
+      <label for="message">What do you want to post?</label>
+      <textarea id="message">please input</textarea>
+      <button id="post">Post</button>
+      <section id="posts"></section>
     </main>
   </body>
 </html>

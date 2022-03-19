@@ -1,19 +1,28 @@
 import { hello } from "../../declarations/hello";
 
-document.querySelector("form").addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const button = e.target.querySelector("button");
+async function post() {
+  let postButton = document.getElementById("post")
+  postButton.disabled = true
+  let textarea = document.getElementById("message")
+  let text = textarea.value
+}
 
-  const name = document.getElementById("name").value.toString();
+async function loadPosts() {
+  let postSection = document.getElementById("posts")
+  postSection.replaceChildren([])
+  let posts = await hello.posts(1547677549)
+  posts.forEach(element => {
+    console.log(element)
+    let post = document.createElement("p")
+    post.innerText = element
+    postSection.appendChild(post)
+  });
+}
 
-  button.setAttribute("disabled", true);
+async function load() {
+  let postButton = document.getElementById("post")
+  postButton.onclick = post
+  loadPosts()
+}
 
-  // Interact with foo actor, calling the greet method
-  const greeting = await hello.greet(name);
-
-  button.removeAttribute("disabled");
-
-  document.getElementById("greeting").innerText = greeting;
-
-  return false;
-});
+window.onload = load
