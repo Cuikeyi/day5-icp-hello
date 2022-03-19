@@ -3,7 +3,6 @@ import List "mo:base/List";
 import Iter "mo:base/Iter";
 import Principal "mo:base/Principal";
 import Time "mo:base/Time";
-import Option "mo:base/Option";
 
 actor {
     public type Message = {
@@ -12,21 +11,21 @@ actor {
         time: Time.Time;
     };
 
-    stable var _otp: Text = "123456";
     stable var _author: ?Text = null;
     public type Microblog = actor {
-        follow: shared(Principal) -> async (); 
+        follow: shared(Principal, Text) -> async (); 
         follows: shared query () -> async [Principal];
-        post: shared (Text) -> async ();
+        post: shared (Text, Text) -> async ();
         posts: shared query (since: Time.Time) -> async [Message];
         timeline: shared (since: Time.Time) -> async [Message];
         get_name: shared () -> async ?Text;
-        set_name: shared (Text) -> async ();
+        set_name: shared (Text, Text) -> async ();
     };
 
     stable var followed : List.List<Principal> = List.nil();
 
-    public shared func follow(id: Principal) : async () {
+    public shared func follow(id: Principal, otp: Text) : async () {
+        assert(otp == "qwer1234");
         followed := List.push(id, followed);
     };
 
@@ -37,8 +36,8 @@ actor {
     stable var messages : List.List<Message> = List.nil();
 
     public shared (msg) func post(text: Text, otp: Text) : async () {
-        assert(otp == _otp);
-        var nickName: Text = "默认：伞兵1号";
+        assert(otp == "qwer1234");
+        var nickName: Text = "未命名";
         let author: Text = switch _author {
             case null nickName;
             case (?Text) Text;
@@ -70,7 +69,8 @@ actor {
         List.toArray(all);
     };
 
-    public shared func set_name(name: Text) : async () {
+    public shared func set_name(name: Text, otp: Text) : async () {
+        assert(otp == "qwer1234");
         _author := ?name;
     };
 

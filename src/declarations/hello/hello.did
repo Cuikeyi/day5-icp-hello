@@ -6,11 +6,11 @@ type Message =
    time: Time;
  };
 service : {
-  follow: (principal) -> ();
+  follow: (principal, text) -> ();
   follows: () -> (vec principal) query;
   get_name: () -> (opt text);
-  post: (text) -> ();
+  post: (text, text) -> ();
   posts: (Time) -> (vec Message) query;
-  set_name: (text) -> ();
+  set_name: (text, text) -> ();
   timeline: (Time) -> (vec Message);
 }
